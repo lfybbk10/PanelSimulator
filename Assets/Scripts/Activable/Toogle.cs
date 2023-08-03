@@ -10,6 +10,8 @@ public class Toogle : Activable
     [SerializeField] private GameObject _arm;
     [SerializeField] private bool isActivated;
 
+    private const float RotateAnimationDuration = 0.5f;
+
     private void Start()
     {
         if (isActivated)
@@ -34,14 +36,14 @@ public class Toogle : Activable
     {
         base.Activate();
         _lightIndicator.Activate();
-        _arm.transform.DORotate(new Vector3(-30, 0, 0),0.5f);
+        _arm.transform.DORotate(new Vector3(-30, 0, 0),RotateAnimationDuration);
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
         _lightIndicator.Deactivate();
-        _arm.transform.DORotate(new Vector3(-120, 0, 0),0.5f);
+        _arm.transform.DORotate(new Vector3(-120, 0, 0),RotateAnimationDuration);
     }
 
     private void EnableLightIndicator() => _lightIndicator.TurnOn();

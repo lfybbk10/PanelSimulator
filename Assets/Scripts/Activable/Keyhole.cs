@@ -11,6 +11,9 @@ public class Keyhole : Activable
 
     private Camera _camera;
 
+    private const float MoveAnimationDuration = 1f;
+    private const float RotateAnimationDuration = 0.5f;
+
     private void Awake()
     {
         _camera = Camera.main;
@@ -20,22 +23,31 @@ public class Keyhole : Activable
     {
         base.Activate();
         _key = Instantiate(_keyPrefab, _camera.transform.position, Quaternion.Euler(new Vector3(13,-95,23)));
-        _key.transform.DOMove(_keyPosition.position, 1f).OnComplete((() =>
+        ActivateKeyAnimation();
+    }
+
+    private void ActivateKeyAnimation()
+    {
+        _key.transform.DOMove(_keyPosition.position, MoveAnimationDuration).OnComplete((() =>
         {
-            _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, 0, _key.transform.eulerAngles.z), 0.5f).OnComplete((TurnOnPanel));
+            _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, 0, _key.transform.eulerAngles.z), RotateAnimationDuration).OnComplete((TurnOnPanel));
         }));
-        
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
-        _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, -95, _key.transform.rotation.eulerAngles.z), 0.5f)
+        DeactivateKeyAnimation();
+    }
+
+    private void DeactivateKeyAnimation()
+    {
+        _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, -95, _key.transform.rotation.eulerAngles.z), RotateAnimationDuration)
             .OnComplete((
                 () =>
                 {
                     TurnOffPanel();
-                    _key.transform.DOMove(_camera.transform.position, 1f);
+                    _key.transform.DOMove(_camera.transform.position, MoveAnimationDuration);
                 }));
     }
 

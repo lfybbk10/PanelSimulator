@@ -19,6 +19,11 @@ public class UIScenario : MonoBehaviour
 
     private void Awake()
     {
+        LoadLabels();   
+    }
+
+    private void LoadLabels()
+    {
         foreach (var label in Resources.Load<TextAsset>(ScenarioLabelsPath).text.Split("\n"))
         {
             _scenarioLabels.Add(label);
@@ -57,7 +62,7 @@ public class UIScenario : MonoBehaviour
 
     private void UpdateErrorText()
     {
-        StopCoroutine(FadeOutErrorText());
+        StopAllCoroutines();
         var textColor = _errorText.color;
         textColor.a = 1;
         _errorText.color = textColor;
@@ -67,13 +72,13 @@ public class UIScenario : MonoBehaviour
 
     private IEnumerator FadeOutErrorText()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.2f);
         var textColor = _errorText.color;
         for (int i = 1; i <= 51; i++)
         {
             textColor.a -= 5 / 255f;
             _errorText.color = textColor;
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }

@@ -35,18 +35,23 @@ public class ActivableInput : MonoBehaviour
                 if (_activableMask.Contains(hit.transform.gameObject.layer))
                 {
                     var activable = hit.collider.GetComponent<Activable>();
-                    if (!activable.IsActive)
-                    {
-                        activable.Activate();
-                        OnActivated?.Invoke(activable);
-                    }
-                    else
-                    {
-                        activable.Deactivate();
-                        OnDeactivated?.Invoke(activable);
-                    }
+                    InteractActivable(activable);
                 }
             }
+        }
+    }
+
+    private void InteractActivable(Activable activable)
+    {
+        if (!activable.IsActive)
+        {
+            activable.Activate();
+            OnActivated?.Invoke(activable);
+        }
+        else
+        {
+            activable.Deactivate();
+            OnDeactivated?.Invoke(activable);
         }
     }
 
