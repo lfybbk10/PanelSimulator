@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AutoButton : Activable
 {
-    [SerializeField] private Transform _activePosition, _deactivePosition;
-    [SerializeField] private GameObject _btnObject;
+    [SerializeField] private Transform activePosition, deactivePosition;
+    [SerializeField] private GameObject btnObject;
     
     private const float AnimationDuration = 0.5f;
 
@@ -17,9 +17,9 @@ public class AutoButton : Activable
 
     private void ClickAnimation()
     {
-        _btnObject.transform.DOMove(_activePosition.position, AnimationDuration).OnComplete((() =>
+        btnObject.transform.DOMove(activePosition.position, AnimationDuration).OnComplete((() =>
         {
-            _btnObject.transform.DOMove(_deactivePosition.position, AnimationDuration).OnComplete((Deactivate));
+            btnObject.transform.DOMove(deactivePosition.position, AnimationDuration).OnComplete((Deactivate));
         }));
     }
 }

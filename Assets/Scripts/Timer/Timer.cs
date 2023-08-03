@@ -1,10 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-
 public class Timer : MonoBehaviour
 {
-    [SerializeField] private ScenarioController _scenarioController;
+    [SerializeField] private ScenarioController scenarioController;
     
     public Action<float> OnTimeChanged;
     
@@ -14,14 +13,14 @@ public class Timer : MonoBehaviour
 
     private void OnEnable()
     {
-        _scenarioController.OnScenarioCompleted += DisableTimer;
-        _scenarioController.OnScenarioFailed += DisableTimer;
+        scenarioController.OnScenarioCompleted += DisableTimer;
+        scenarioController.OnScenarioFailed += DisableTimer;
     }
 
     private void OnDisable()
     {
-        _scenarioController.OnScenarioCompleted -= DisableTimer;
-        _scenarioController.OnScenarioFailed -= DisableTimer;
+        scenarioController.OnScenarioCompleted -= DisableTimer;
+        scenarioController.OnScenarioFailed -= DisableTimer;
     }
 
     private void DisableTimer()

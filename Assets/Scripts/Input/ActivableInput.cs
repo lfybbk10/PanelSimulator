@@ -1,38 +1,37 @@
 ﻿using System;
 using UnityEngine;
 
-
 public class ActivableInput : MonoBehaviour
 {
-    [SerializeField] private ScenarioController _scenarioController;
-    [SerializeField] private LayerMask _activableMask;
+    [SerializeField] private ScenarioController scenarioController;
+    [SerializeField] private LayerMask activableMask;
 
     public Action<Activable> OnActivated, OnDeactivated;
 
-    private bool isInputEnabled = true;
+    private bool _isInputDisabled;
 
     private void OnEnable()
     {
-        _scenarioController.OnScenarioCompleted += DisableInput;
-        _scenarioController.OnScenarioFailed += DisableInput;
+        scenarioController.OnScenarioCompleted += DisableInput;
+        scenarioController.OnScenarioFailed += DisableInput;
     }
 
     private void OnDisable()
     {
-        _scenarioController.OnScenarioCompleted -= DisableInput;
-        _scenarioController.OnScenarioFailed -= DisableInput;
+        scenarioController.OnScenarioCompleted -= DisableInput;
+        scenarioController.OnScenarioFailed -= DisableInput;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isInputEnabled)
+        if (Input.GetMouseButtonDown(0) && !_isInputDisabled)
         {
             Vector3 screenPos = Input.mousePosition;
             Ray ray = Camera.main.ScreenPointToRay(screenPos);
 
             if (Physics.Raycast(ray, out var hit))
             {
-                if (_activableMask.Contains(hit.transform.gameObject.layer))
+                if (activableMask.Contains(hit.transform.gameObject.layer))
                 {
                     var activable = hit.collider.GetComponent<Activable>();
                     InteractActivable(activable);
@@ -55,13 +54,7 @@ public class ActivableInput : MonoBehaviour
         }
     }
 
-    private void DisableInput()
-    {
-        isInputEnabled = false;
-    }
-    
-    private void EnableInput()
-    {
-        isInputEnabled = true;
-    }
+    private void DisableInput() => _isInputDisabled = true;
+
+    private void EnableInput() => _isInputDisabled = false;
 }

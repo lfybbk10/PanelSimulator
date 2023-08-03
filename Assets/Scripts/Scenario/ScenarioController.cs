@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ScenarioController : Singleton<ScenarioController>
 {
     [SerializeField] private List<ScenarioElement> scenarioElems = new List<ScenarioElement>();
@@ -31,7 +30,7 @@ public class ScenarioController : Singleton<ScenarioController>
 
     private void OnActivated(Activable activable)
     {
-        if (scenarioElems[_currScenarioElemsIndex]._activable == activable && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Activate)
+        if (scenarioElems[_currScenarioElemsIndex].activable == activable && scenarioElems[_currScenarioElemsIndex].state==ActivateState.Activate)
             NextStep();
         else
         {
@@ -42,7 +41,7 @@ public class ScenarioController : Singleton<ScenarioController>
     
     private void OnDeactivated(Activable activable)
     {
-        if (scenarioElems[_currScenarioElemsIndex]._activable == activable && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Deactivate)
+        if (scenarioElems[_currScenarioElemsIndex].activable == activable && scenarioElems[_currScenarioElemsIndex].state==ActivateState.Deactivate)
             NextStep();
         else
         {
