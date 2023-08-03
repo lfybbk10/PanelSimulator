@@ -10,9 +10,8 @@ public class Keyhole : Activable
 
     private Camera _camera;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _camera = Camera.main;
     }
 

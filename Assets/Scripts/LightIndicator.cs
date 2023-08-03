@@ -11,9 +11,8 @@ public class LightIndicator : Activable
     
     private Color _turnOffColor = Color.gray;
     
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _renderer = GetComponent<Renderer>();
     }
 

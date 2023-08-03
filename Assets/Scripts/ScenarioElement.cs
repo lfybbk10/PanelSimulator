@@ -1,7 +1,7 @@
-﻿
-using UnityEngine;
+﻿using System;
 
-public class ScenarioElement : MonoBehaviour
+[Serializable]
+public class ScenarioElement
 {
     public Activable _activable;
     public ActivateState _state;

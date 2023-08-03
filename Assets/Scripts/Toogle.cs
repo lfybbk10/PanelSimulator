@@ -8,6 +8,15 @@ public class Toogle : Activable
     [SerializeField] private Panel _panel;
     [SerializeField] private LightIndicator _lightIndicator;
     [SerializeField] private GameObject _arm;
+    [SerializeField] private bool isActivated;
+
+    private void Start()
+    {
+        if (isActivated)
+        {
+            Activate();
+        }
+    }
 
     private void OnEnable()
     {
