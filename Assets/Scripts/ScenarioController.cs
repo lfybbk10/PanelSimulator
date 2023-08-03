@@ -31,18 +31,24 @@ public class ScenarioController : Singleton<ScenarioController>
 
     private void OnActivated(Activable activable)
     {
-        if (scenarioElems.FindIndex(elem=>elem._activable == activable) == _currScenarioElemsIndex && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Activate)
+        if (scenarioElems[_currScenarioElemsIndex]._activable == activable && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Activate)
             NextStep();
         else
+        {
             MakeError();
+            activable.Deactivate();
+        }
     }
     
     private void OnDeactivated(Activable activable)
     {
-        if (scenarioElems.FindIndex(elem=>elem._activable == activable) == _currScenarioElemsIndex && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Deactivate)
+        if (scenarioElems[_currScenarioElemsIndex]._activable == activable && scenarioElems[_currScenarioElemsIndex]._state==ActivateState.Deactivate)
             NextStep();
         else
+        {
             MakeError();
+            activable.Activate();
+        }
     }
     
     private void NextStep()
@@ -57,7 +63,7 @@ public class ScenarioController : Singleton<ScenarioController>
     {
         OnErrorMade?.Invoke();
         _currErrorsCount++;
-        if(_currErrorsCount==_maxErrorsCount)
+        if (_currErrorsCount == _maxErrorsCount)
             OnScenarioFailed?.Invoke();
     }
 }

@@ -9,7 +9,7 @@ public class ActivableInput : MonoBehaviour
 
     public Action<Activable> OnActivated, OnDeactivated;
 
-    private bool isInputEnabled;
+    private bool isInputEnabled = true;
 
     private void OnEnable()
     {
@@ -35,7 +35,7 @@ public class ActivableInput : MonoBehaviour
                 if (_activableMask.Contains(hit.transform.gameObject.layer))
                 {
                     var activable = hit.collider.GetComponent<Activable>();
-                    if (activable.IsActive)
+                    if (!activable.IsActive)
                     {
                         activable.Activate();
                         OnActivated?.Invoke(activable);

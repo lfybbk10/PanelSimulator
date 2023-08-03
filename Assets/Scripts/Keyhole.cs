@@ -5,6 +5,7 @@ public class Keyhole : Activable
 {
     [SerializeField] private Panel _panel;
     [SerializeField] private GameObject _keyPrefab;
+    [SerializeField] private Transform _keyPosition;
 
     private GameObject _key;
 
@@ -18,10 +19,10 @@ public class Keyhole : Activable
     public override void Activate()
     {
         base.Activate();
-        _key = Instantiate(_keyPrefab, _camera.transform.position, Quaternion.identity);
-        _key.transform.DOMove(transform.position, 1f).OnComplete((() =>
+        _key = Instantiate(_keyPrefab, _camera.transform.position, Quaternion.Euler(new Vector3(13,-95,23)));
+        _key.transform.DOMove(_keyPosition.position, 1f).OnComplete((() =>
         {
-            _key.transform.DORotate(new Vector3(_key.transform.rotation.x, 0, _key.transform.rotation.z), 0.5f).OnComplete((TurnOnPanel));
+            _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, 0, _key.transform.eulerAngles.z), 0.5f).OnComplete((TurnOnPanel));
         }));
         
     }
@@ -29,7 +30,7 @@ public class Keyhole : Activable
     public override void Deactivate()
     {
         base.Deactivate();
-        _key.transform.DORotate(new Vector3(_key.transform.rotation.x, -90, _key.transform.rotation.z), 0.5f)
+        _key.transform.DORotate(new Vector3(_key.transform.rotation.eulerAngles.x, -95, _key.transform.rotation.eulerAngles.z), 0.5f)
             .OnComplete((
                 () =>
                 {

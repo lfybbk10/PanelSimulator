@@ -9,7 +9,7 @@ public class UIScenario : MonoBehaviour
 {
     [SerializeField] private ScenarioController _scenarioController;
 
-    private Text _scenarioText, _errorText;
+    [SerializeField] private Text _scenarioText, _errorText;
 
     private readonly List<string> _scenarioLabels = new List<string>();
 
@@ -45,6 +45,8 @@ public class UIScenario : MonoBehaviour
     private void SwitchLabel()
     {
         _currScenarioLabelsIndex++;
+        if(_currScenarioLabelsIndex==_scenarioLabels.Count)
+            return;
         UpdateScenarioText();
     }
 
