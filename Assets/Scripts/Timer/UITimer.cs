@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
@@ -16,6 +17,11 @@ public class UITimer : MonoBehaviour
     private void OnEnable()
     {
         _timer.OnTimeChanged += UpdateText;
+    }
+
+    private void OnDisable()
+    {
+        _timer.OnTimeChanged -= UpdateText;
     }
 
     private void UpdateText(float value)

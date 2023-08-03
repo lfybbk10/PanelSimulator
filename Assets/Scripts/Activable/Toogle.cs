@@ -32,7 +32,6 @@ public class Toogle : Activable
 
     public override void Activate()
     {
-        print("activate");
         base.Activate();
         _lightIndicator.Activate();
         _arm.transform.DORotate(new Vector3(-30, 0, 0),0.5f);
