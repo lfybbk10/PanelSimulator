@@ -57,6 +57,7 @@ public class UIScenario : MonoBehaviour
 
     private void UpdateErrorText()
     {
+        StopCoroutine(FadeOutErrorText());
         var textColor = _errorText.color;
         textColor.a = 1;
         _errorText.color = textColor;

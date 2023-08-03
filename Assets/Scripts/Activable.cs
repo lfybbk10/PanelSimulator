@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Activable : MonoBehaviour
 {
-    
     public Action<Activable> OnActivated, OnDeactivated;
     
     public bool IsActive { get; protected set; }

@@ -20,6 +20,6 @@ public class UITimer : MonoBehaviour
 
     private void UpdateText(float value)
     {
-        _text.text = "Время: " + value + " с.";
+        _text.text = "Время: " + (int)value + " с.";
     }
 }

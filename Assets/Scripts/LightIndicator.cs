@@ -11,7 +11,7 @@ public class LightIndicator : Activable
     
     private Color _turnOffColor = Color.gray;
 
-    private bool isTurnOn;
+    private bool _isTurnOn;
     
     private void Awake()
     {
@@ -21,24 +21,24 @@ public class LightIndicator : Activable
     public override void Activate()
     {
         base.Activate();
-        _renderer.material.color = isTurnOn ? _activeColor : _turnOffColor;
+        _renderer.material.color = _isTurnOn ? _activeColor : _turnOffColor;
     }
 
     public override void Deactivate()
     {
         base.Deactivate();
-        _renderer.material.color = isTurnOn ? _deactiveColor : _turnOffColor;
+        _renderer.material.color = _isTurnOn ? _deactiveColor : _turnOffColor;
     }
 
     public void TurnOn()
     {
-        isTurnOn = true;
+        _isTurnOn = true;
         _renderer.material.color = IsActive ? _activeColor : _deactiveColor;
     }
 
     public void TurnOff()
     {
-        isTurnOn = false;
+        _isTurnOn = false;
         _renderer.material.color = _turnOffColor;
     }
 }
