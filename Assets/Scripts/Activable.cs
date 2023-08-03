@@ -9,11 +9,11 @@ public class Activable : MonoBehaviour
 
     public static IReadOnlyList<Activable> Instances => _instances;
 
-    public Action<Activable> OnActivated;
+    public Action<Activable> OnActivated, OnDeactivated;
     
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; protected set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _instances.Add(this);
     }
@@ -27,6 +27,7 @@ public class Activable : MonoBehaviour
     public virtual void Deactivate()
     {
         IsActive = false;
+        OnDeactivated?.Invoke(this);
     }
 
     private void OnDestroy()
